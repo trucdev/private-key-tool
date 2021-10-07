@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useMemo, useState } from "react";
+import { getRealPrivateKey } from "./lib";
 
 function App() {
+  const [oldKey, setOldKey] = useState("");
+
+  const hexKey = useMemo(() => {
+    let prik = `${getRealPrivateKey(oldKey)}`;
+    const length = prik.length;
+    for (let i = length; i < 64; i++) {
+      prik = `0${prik}`;
+    }
+
+    return prik;
+  }, [oldKey]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p>Nhập private key:</p>
+      <textarea
+        style={{ minWidth: 400, maxWidth: "90%", minHeight: 100 }}
+        value={oldKey}
+        onChange={(e) => setOldKey(e.target.value)}
+      ></textarea>
+      <p>Address:</p>
+
+      <p>Private key dạng HEX:</p>
+      <p>{hexKey}</p>
     </div>
   );
 }
