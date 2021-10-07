@@ -23,8 +23,6 @@ function App() {
         value={oldKey}
         onChange={(e) => setOldKey(e.target.value)}
       ></textarea>
-      <p>Address:</p>
-
       <p>Private key dạng HEX:</p>
       <p>{hexKey}</p>
     </div>
